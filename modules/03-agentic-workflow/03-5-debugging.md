@@ -60,7 +60,7 @@ flowchart TD
     I --> J{가설 확정?}
     J -- 기각 --> H
     J -- 확정 --> F[4. 수정<br/>최소 변경]
-    F --> V[5. 검증<br/>재현 테스트 + pnpm verify<br/>+ 계측 제거]
+    F --> V[5. 검증<br/>재현 테스트 + make verify<br/>+ 계측 제거]
     V -- 실패 --> H
     V -- 통과 --> P[버그 리포트 갱신 + PR]
 ```
@@ -228,14 +228,14 @@ git bisect reset
 ```text
 > DEBUG(BUG-007) 표식이 붙은 코드를 모두 제거해라. 그다음 아래를 차례로 실행하고 결과를 보여줘라.
   1. grep -rn "DEBUG(BUG-007)" apps packages   (출력이 없어야 한다)
-  2. pnpm verify   (마지막 20줄)
+  2. make verify   (마지막 20줄)
 ```
 
 사람이 직접 확인한다.
 ```bash
 grep -rn "DEBUG(BUG-007)" apps packages || echo "OK: 계측 흔적 없음"
 git diff --stat main...HEAD
-pnpm verify
+make verify
 ```
 
 수정한 도구와 **다른 도구**로 리뷰한다.
@@ -278,14 +278,14 @@ codex review --base main
 - [ ] 가설 3개 이상을 근거·반대 근거·확인 실험과 함께 받았고, 읽기 전용 상태에서 세웠다.
 - [ ] 계측 결과(로그 파일)로 최소 한 가설을 확정하고 한 가설을 기각했다.
 - [ ] 수정이 근본 원인에 맞고, 재현 테스트를 수정하지 않았다.
-- [ ] `grep -rn "DEBUG(BUG-007)"` 결과가 비어 있고 `pnpm verify`가 통과한다.
+- [ ] `grep -rn "DEBUG(BUG-007)"` 결과가 비어 있고 `make verify`가 통과한다.
 - [ ] 수정하지 않은 도구로 리뷰를 실행했다.
 - [ ] `docs/bugs/BUG-007.md`에 가설·원인·수정·회귀 방지가 기록됐다.
 
 ## 🏠 숙제
 | # | 유형 | 난이도 | 과제 | 완료 조건 |
 |---|---|---|---|---|
-| HW1 | 🔁 Reproduce | ★ | 따라하기 Step 1~5를 재현해 심어 둔 버그를 찾는다 (파트너가 심은 버그면 더 좋다) | 재현 테스트 실패 로그, 가설 표(3개 이상), 계측 로그 분석 결과, 수정 후 `pnpm verify` 통과 로그, 계측 흔적 grep 결과 |
+| HW1 | 🔁 Reproduce | ★ | 따라하기 Step 1~5를 재현해 심어 둔 버그를 찾는다 (파트너가 심은 버그면 더 좋다) | 재현 테스트 실패 로그, 가설 표(3개 이상), 계측 로그 분석 결과, 수정 후 `make verify` 통과 로그, 계측 흔적 grep 결과 |
 | HW2 | 🛠 Apply | ★★ | 실제 버그 1건(본인 프로젝트 또는 TaskFlow 개발 중 발견한 것)을 버그 리포트 → 수정 PR까지 이 레슨의 절차로 처리한다 | `docs/bugs/BUG-xxx.md`(이 레슨 6개 섹션 모두), 재현 테스트가 먼저 커밋된 이력, 다른 도구의 리뷰 결과, PR 링크와 세션 기록(사람 개입 지점 포함) |
 | HW3 | 🚀 Challenge | ★★★ | 같은 버그를 Claude Code와 Codex로 각각 독립적으로 디버깅하고 비교한다. 재현 → 가설 → 계측 → 수정 절차를 디버깅 Skill(`.claude/skills/debug/`, `.agents/skills/debug/`)로 패키징한다 | 도구별 가설 목록과 첫 가설 적중 여부, 원인 확정까지 걸린 턴 수·사람 개입 횟수 비교표, Skill 파일 2개, Skill을 써서 다른 버그 1건을 처리한 기록 |
 

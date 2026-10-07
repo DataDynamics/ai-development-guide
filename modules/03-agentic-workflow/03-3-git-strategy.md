@@ -39,7 +39,7 @@ tools:
 Task 명세 1개 ──► 브랜치 1개 ──► PR 1개 (리뷰 가능한 크기)
                                   │
                                   ├─ 커밋: test(api): ...      ← 각 커밋은 하나의 의도
-                                  ├─ 커밋: feat(api): ...      ← 각 커밋에서 pnpm verify 통과
+                                  ├─ 커밋: feat(api): ...      ← 각 커밋에서 make verify 통과
                                   └─ 커밋: refactor(api): ...
 ```
 
@@ -76,7 +76,7 @@ claude
   - 커밋: Conventional Commits. 형식 "type(scope): 요약(50자 이내, 한국어 또는 영어 통일)".
     scope 는 api|web|db|shared|worker|cli|repo. 본문에는 "왜" 를 쓴다. 꼬리말에 Refs: TASK-xxx.
   - 한 커밋에는 한 가지 의도만 담는다. 포맷 변경과 기능 변경을 섞지 않는다.
-  - 각 커밋에서 pnpm verify 가 통과해야 한다. TDD 의 test: 커밋만 예외이며 본문에 "intentionally failing" 을 적는다.
+  - 각 커밋에서 make verify 가 통과해야 한다. TDD 의 test: 커밋만 예외이며 본문에 "intentionally failing" 을 적는다.
   - PR 은 Task 1개당 1개, 변경 400줄 이하 권장(pnpm-lock.yaml, 생성 코드 제외). 넘으면 분할안을 먼저 제안한다.
   - 금지: git push --force, main 브랜치 직접 커밋, git commit --amend 로 이미 push 한 커밋 수정.
   다른 섹션은 건드리지 마라.
@@ -118,7 +118,7 @@ git status --short
 **Claude Code 레시피**
 ```text
 > 현재 커밋되지 않은 변경 전체를 분석해서 커밋 계획을 세워라. 아직 커밋하지 마라.
-  형식: 커밋마다 (순서, 메시지 초안, 포함할 파일 또는 hunk, 이 커밋만 적용했을 때 pnpm verify 가 통과할지 예상).
+  형식: 커밋마다 (순서, 메시지 초안, 포함할 파일 또는 hunk, 이 커밋만 적용했을 때 make verify 가 통과할지 예상).
   TASK-032 와 관련 없는 변경은 별도 커밋이나 별도 브랜치로 분리하자고 제안해라.
 ```
 계획을 검토한 뒤 실행시킨다.
@@ -208,7 +208,7 @@ description: Write a commit message for staged changes following the TaskFlow Gi
 <!-- 커밋 단위로 한 줄씩 -->
 
 ## 검증 증거
-- [ ] `pnpm verify` 통과 (출력 마지막 줄 붙여넣기)
+- [ ] `make verify` 통과 (출력 마지막 줄 붙여넣기)
 - [ ] 새/수정 테스트 목록:
 - [ ] 수동 확인 (필요한 경우):
 
@@ -234,7 +234,7 @@ description: Draft a pull request description for the current branch using the r
 2. 변경 줄 수를 계산한다: `git diff --numstat origin/main...HEAD -- . ':(exclude)pnpm-lock.yaml'`
    합계가 400줄을 넘으면 PR 설명 대신 분할안(브랜치별 커밋 목록)을 먼저 제시하고 멈춘다.
 3. `.github/pull_request_template.md` 의 모든 섹션을 채운다.
-   - 검증 증거는 직접 `pnpm verify` 를 실행한 결과로 채운다. 실행하지 않았으면 "미실행"이라고 쓴다.
+   - 검증 증거는 직접 `make verify` 를 실행한 결과로 채운다. 실행하지 않았으면 "미실행"이라고 쓴다.
    - AI 사용 기록은 이 세션에서 실제로 있었던 일만 쓴다.
 4. 결과를 tmp/pr-body.md 로 저장하고 `gh pr create --title "<제목>" --body-file tmp/pr-body.md` 명령을 출력한다.
 ```
@@ -267,13 +267,13 @@ gh pr create --title "feat(api): filter tasks by status and assignee" --body-fil
 **Claude Code 레시피**
 ```text
 > 현재 브랜치 변경이 400줄을 넘는다. 분할안을 제시해라.
-  조건: 각 PR 은 독립적으로 pnpm verify 를 통과해야 하고, 머지 순서가 명확해야 한다.
+  조건: 각 PR 은 독립적으로 make verify 를 통과해야 하고, 머지 순서가 명확해야 한다.
   형식: PR 마다 (브랜치 이름, 포함할 커밋, 예상 변경 줄 수, 선행 PR).
 ```
 분할안을 승인한 뒤 실행시킨다.
 ```text
 > 분할안대로 브랜치를 만들어라. 첫 번째 브랜치는 main 에서, 두 번째 브랜치는 첫 번째 브랜치에서 분기하고
-  git cherry-pick 으로 해당 커밋만 옮겨라. 각 브랜치에서 pnpm verify 를 실행하고 결과를 보여줘라.
+  git cherry-pick 으로 해당 커밋만 옮겨라. 각 브랜치에서 make verify 를 실행하고 결과를 보여줘라.
 ```
 
 **Codex 레시피**
@@ -287,7 +287,7 @@ git switch -c feat/TASK-032-task-filter-api main
 git cherry-pick d4e5f6a e5f6a7b
 ```
 ```text
-> pnpm verify 를 실행하고 결과 마지막 20줄을 보여줘라.
+> make verify 를 실행하고 결과 마지막 20줄을 보여줘라.
 ```
 
 **기대 결과**
@@ -331,7 +331,7 @@ codex review --base main
 - **Codex가 커밋이나 PR 생성을 못 한다** → `workspace-write`에서도 `.git`이 보호되고 네트워크가 기본 차단이다 → Codex에게는 메시지 파일과 명령을 만들게 하고 사람이 실행한다. 반복된다면 승인 요청에 응하는 흐름을 팀 규칙으로 정한다.
 - **PR 본문이 그럴듯하지만 사실과 다르다** ("모든 테스트 통과" 등) → 에이전트가 실행하지 않은 검증을 추정해서 썼다 → PR Skill에 "직접 실행한 결과만, 미실행이면 미실행이라고 쓴다"를 넣고, 리뷰어는 CI 결과와 대조한다.
 - **리뷰 지적을 고치면서 이력을 망가뜨린다** → 에이전트가 `--amend`나 force push를 썼다 → `AGENTS.md` 금지 목록과 Claude Code `deny` 규칙에 넣고, 수정은 새 커밋으로 한다. 정리가 필요하면 머지 방식(squash merge 등)으로 해결한다.
-- **분할한 PR이 각자 깨진다** → 커밋 단위가 빌드 가능한 상태가 아니었다 → "각 커밋에서 `pnpm verify` 통과"를 규칙으로 두고, 분할 후 브랜치마다 검증을 돌린다.
+- **분할한 PR이 각자 깨진다** → 커밋 단위가 빌드 가능한 상태가 아니었다 → "각 커밋에서 `make verify` 통과"를 규칙으로 두고, 분할 후 브랜치마다 검증을 돌린다.
 
 ## 🔗 참고 자료
 - Claude Code: [Permissions](https://code.claude.com/docs/en/permissions), [Skills](https://code.claude.com/docs/en/skills), [Common workflows](https://code.claude.com/docs/en/common-workflows), [Code review](https://code.claude.com/docs/en/code-review)

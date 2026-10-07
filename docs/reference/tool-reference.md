@@ -445,6 +445,19 @@ jobs:
 10. **Claude `/agents`는 더 이상 마법사가 아니다** (v2.1.198+). 오래된 스크린샷을 쓰지 않는다.
 11. **`claude mcp add`에서 `--`를 빠뜨리면** 서버 플래그를 잘못 해석한다. `--env` 바로 뒤에 이름을 두는 실수도 흔하다.
 12. **Codex 문서 주소**: `developers.openai.com/codex/*`는 `learn.chatgpt.com/docs/*`로 리다이렉트된다. 링크가 깨지면 두 도메인을 모두 확인한다.
+13. **`codex exec`에는 `-a`가 없다.** 승인 정책 플래그는 대화형 `codex`에만 있다. `exec`는 `--sandbox`, `-p/--profile`, `-i/--image`, `-o`, `--json`, `--output-schema`를 받는다.
+14. **`codex exec resume`은 `--sandbox`를 거부한다.** 샌드박스는 `resume` 앞에 둔다: `codex exec --sandbox workspace-write resume --last "..."`.
+15. **`codex review` / `codex exec review`는 `--base`·`--uncommitted`·`--commit`과 사용자 프롬프트를 함께 받지 않는다.** 리뷰 기준은 `AGENTS.md`(예: `## Code Review Rules`)에 둔다.
+16. **`-p`의 의미가 다르다.** Claude `-p`는 print(비대화형), Codex `-p`는 `--profile`이다. `codex exec -p "..."`는 프롬프트가 아니라 프로필 이름으로 해석된다.
+17. **`claude --bare`는 OAuth/키체인 로그인을 읽지 않는다.** `ANTHROPIC_API_KEY` 또는 `apiKeyHelper`가 필요하므로 구독 로그인 사용자는 실패한다.
+18. **`codex cloud status|diff|apply`는 `<TASK_ID>`가 필수다.** `diff`·`apply`는 `--attempt N`도 받는다.
+19. **Codex `--add-dir`는 쓰기 가능한 디렉터리를 추가한다** (읽기 전용 추가가 아니다).
+20. **Codex에는 Claude `Read(./.env)` 같은 경로 단위 읽기 차단 규칙이 확인되지 않았다.** 실제 비밀은 저장소 밖에 두고 `shell_environment_policy`로 환경변수 노출을 줄인다. TODO(verify)
+21. **세션 로그 위치(문서화되지 않음, 로컬 확인)**: Claude `~/.claude/projects/<encoded-path>/<session-id>.jsonl`, Codex `~/.codex/sessions/YYYY/MM/DD/rollout-*.jsonl`. 레슨에서는 의존하지 말고 `--output-format stream-json` / `--json` 출력을 쓴다.
+22. **Claude `/usage`, `total_cost_usd`는 정가 기준 달러 추정치를 보여준다** (관리자는 `modelPricing` managed setting으로 바꿀 수 있다). 이 가이드는 비용을 토큰으로만 기록한다.
+23. **TaskFlow 검증 커맨드는 `make verify`로 통일한다.** B0(01-1)에서 만들고 04-1에서 `verify-fast`를 추가한다.
+
+추가 공식 문서: [managed settings](https://code.claude.com/docs/en/managed-settings.md), [settings reference](https://code.claude.com/docs/en/settings-reference.md), [monitoring usage](https://code.claude.com/docs/en/monitoring-usage.md)
 
 ### 12.2 자주 바뀌는 영역 (레슨마다 `last-verified` 갱신 대상)
 

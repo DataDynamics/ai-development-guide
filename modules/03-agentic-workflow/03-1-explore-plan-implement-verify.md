@@ -24,7 +24,7 @@ tools:
 - 실습 저장소 상태: Project B(TaskFlow)의 B1 완료 상태
   - `apps/api`(Fastify), `apps/web`(Next.js), `packages/db`(PostgreSQL 스키마·마이그레이션), `packages/shared`(공용 타입)가 있다.
   - 루트에 `CLAUDE.md`(`@AGENTS.md` import)와 `AGENTS.md`가 있다.
-  - B0에서 만든 검증 커맨드 `pnpm verify`(lint + typecheck + test)가 동작한다.
+  - B0에서 만든 검증 커맨드 `make verify`(lint + typecheck + test, [01-1](../01-environment-setup/01-1-project-memory.md) 참고)가 동작한다.
   - `docs/tasks/`에 [templates/task-spec.md](../../templates/task-spec.md) 형식의 Task 명세가 있다. 이 레슨은 그중 `TASK-032`를 쓴다.
 
 ```markdown
@@ -40,7 +40,7 @@ GET /projects/:projectId/tasks 에 status, assigneeId 쿼리 필터를 추가한
 ## 완료 조건
 - [ ] `pnpm --filter @taskflow/api test -- tasks` 통과
 - [ ] 잘못된 status 값은 400과 오류 코드 `INVALID_FILTER`를 반환한다
-- [ ] `pnpm verify` 통과
+- [ ] `make verify` 통과
 ## 범위 밖
 - 웹 UI 필터 컴포넌트 (TASK-033)
 ```
@@ -74,7 +74,7 @@ flowchart LR
     P --> H{사람 승인}
     H -- 수정 요청 --> P
     H -- 승인 --> I[Implement<br/>쓰기 허용]
-    I --> V[Verify<br/>pnpm verify + 리뷰]
+    I --> V[Verify<br/>make verify + 리뷰]
     V -- 실패 --> I
     V -- 계획 자체가 틀림 --> P
     V -- 통과 --> D[커밋 / PR]
@@ -233,7 +233,7 @@ codex --sandbox workspace-write --ask-for-approval on-request
 
 **Claude Code 레시피**
 ```text
-> pnpm verify 를 실행하고 마지막 30줄을 그대로 보여줘라. 요약하지 마라.
+> make verify 를 실행하고 마지막 30줄을 그대로 보여줘라. 요약하지 마라.
 > docs/tasks/TASK-032.md 의 완료 조건을 하나씩 확인하고, 각 조건을 증명하는 출력이나 테스트 이름을 표로 적어라.
 ```
 그다음 같은 세션에서 자기 리뷰를 실행한다.
@@ -243,7 +243,7 @@ codex --sandbox workspace-write --ask-for-approval on-request
 
 **Codex 레시피**
 ```text
-> pnpm verify 를 실행하고 마지막 30줄을 그대로 보여줘라. 요약하지 마라.
+> make verify 를 실행하고 마지막 30줄을 그대로 보여줘라. 요약하지 마라.
 > docs/tasks/TASK-032.md 의 완료 조건을 하나씩 확인하고, 각 조건을 증명하는 출력이나 테스트 이름을 표로 적어라.
 ```
 리뷰는 TUI의 `/review`를 쓰거나, 세션 밖에서 비대화형으로 실행한다.
@@ -252,7 +252,7 @@ codex review --uncommitted
 ```
 
 **기대 결과**
-- `pnpm verify`가 종료 코드 0으로 끝난다. 사람이 직접 한 번 더 실행해 확인한다.
+- `make verify`가 종료 코드 0으로 끝난다. 사람이 직접 한 번 더 실행해 확인한다.
 - 완료 조건 표의 모든 행에 증거가 있다. 증거 칸이 "구현함"처럼 말로만 채워져 있으면 미완료로 본다.
 - 리뷰 지적 중 타당한 것은 Implement로 돌아가 고치고, 타당하지 않은 것은 이유를 기록한다.
 
@@ -279,14 +279,14 @@ codex review --uncommitted
 - [ ] 계획서에 변경 파일, 구현 순서(+검증 커맨드), 테스트 케이스, 범위 밖, 위험·가정이 모두 있다.
 - [ ] 계획에 최소 한 번 수정 요청을 보내고 반영을 확인했다.
 - [ ] `git diff --stat`의 파일 목록이 승인된 계획과 일치한다.
-- [ ] `pnpm verify`를 사람이 직접 실행해 통과를 확인했다.
+- [ ] `make verify`를 사람이 직접 실행해 통과를 확인했다.
 - [ ] 완료 조건 표의 모든 행에 증거(출력, 테스트 이름)가 있다.
 - [ ] Claude Code와 Codex 중 최소 하나로 리뷰를 실행하고 지적을 처리했다.
 
 ## 🏠 숙제
 | # | 유형 | 난이도 | 과제 | 완료 조건 |
 |---|---|---|---|---|
-| HW1 | 🔁 Reproduce | ★ | 따라하기 Step 1~5를 본인 TaskFlow 저장소의 Task 1개로 재현한다 | `docs/plans/TASK-xxx.md`(계획 + 실행 기록)가 있고, `pnpm verify` 통과 로그와 리뷰 결과가 제출 파일에 첨부됨 |
+| HW1 | 🔁 Reproduce | ★ | 따라하기 Step 1~5를 본인 TaskFlow 저장소의 Task 1개로 재현한다 | `docs/plans/TASK-xxx.md`(계획 + 실행 기록)가 있고, `make verify` 통과 로그와 리뷰 결과가 제출 파일에 첨부됨 |
 | HW2 | 🔬 Compare | ★★ | 비슷한 크기의 Task 2개를 하나는 "바로 구현", 하나는 "계획 후 구현"으로 수행하고 비교한다 (같은 도구 사용) | 두 방식 각각의 소요 시간, 사람 개입 횟수, 계획 밖 변경 파일 수, 검증 실패 횟수, 리뷰 지적 수를 표로 정리하고 결론 3줄 이상 작성 |
 | HW3 | 🚀 Challenge | ★★★ | 같은 Task를 Claude Code와 Codex로 각각 "계획 후 구현"하고 계획서 품질과 결과물을 비교한다. 반복된 수정 요청을 `AGENTS.md` 규칙으로 옮긴다 | 두 계획서 원문, 계획 품질 비교표(범위·재사용·검증·가정 4항목 점수), `AGENTS.md` 변경 diff, 규칙 반영 후 다른 Task 1개에서 수정 요청 횟수가 줄었는지 기록 |
 
@@ -296,7 +296,7 @@ codex review --uncommitted
 - **계획 단계에서 파일이 바뀌었다** → 기본 모드(`auto`) 또는 `workspace-write` 세션에서 "계획만 세워라"라고 말로만 지시했다 → Claude Code는 `--permission-mode plan`으로 시작하거나 `Shift+Tab`으로 plan 모드를 켜고, Codex는 `/plan` 또는 `--sandbox read-only`로 시작한다. 말이 아니라 권한으로 막는다.
 - **계획이 너무 추상적이다** ("모듈을 수정한다, 테스트를 추가한다") → 계획서 형식을 지정하지 않았다 → Step 2의 다섯 섹션 형식을 프롬프트에 넣고, 각 단계에 실행 가능한 검증 커맨드를 요구한다.
 - **구현이 계획을 조용히 벗어난다** → 중단 조건을 주지 않았다 → "계획에 없는 파일을 수정해야 하면 먼저 이유를 말하고 멈춰라"를 매 Implement 프롬프트에 넣고, 단계마다 `git diff --stat`을 계획과 대조한다.
-- **"모든 테스트 통과"라는 보고만 믿었다** → 에이전트의 요약은 증거가 아니다 → 출력 원문(마지막 N줄)을 요구하고, 사람이 `pnpm verify`를 한 번 더 실행한다.
+- **"모든 테스트 통과"라는 보고만 믿었다** → 에이전트의 요약은 증거가 아니다 → 출력 원문(마지막 N줄)을 요구하고, 사람이 `make verify`를 한 번 더 실행한다.
 - **같은 실패를 계속 고친다** → Implement 실패와 계획 오류를 구분하지 않았다 → 같은 실패가 세 번 반복되면 Plan으로 돌아가 "어떤 가정이 틀렸는지"부터 묻는다.
 
 ## 🔗 참고 자료

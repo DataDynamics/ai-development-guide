@@ -49,7 +49,7 @@ flowchart LR
       B0[노트 1 읽기 + 상태 검증] --> B1[보드 컴포넌트 + 드래그] --> H2[핸드오프 노트 2 작성]
     end
     subgraph S3[세션 3 · Codex]
-      C0[노트 2 읽기 + 상태 검증] --> C1[낙관적 업데이트 + 롤백] --> V[pnpm verify + PR]
+      C0[노트 2 읽기 + 상태 검증] --> C1[낙관적 업데이트 + 롤백] --> V[make verify + PR]
     end
     H1 -- /clear --> B0
     H2 -- 도구 전환 --> C0
@@ -245,7 +245,7 @@ codex --sandbox workspace-write --ask-for-approval on-request
 > docs/handoff/TASK-040-session-2.md 를 읽어라. 이 노트는 다른 에이전트가 썼다.
   작업 전에 노트와 실제 상태를 대조해라(git log, git status, 노트의 테스트 커맨드).
   일치하면 "다음 세션이 해야 할 것"을 수행해라: 하위 작업 3(낙관적 업데이트 + 롤백 + 테스트).
-  끝나면 pnpm verify 를 실행하고 마지막 20줄을 보여줘라.
+  끝나면 make verify 를 실행하고 마지막 20줄을 보여줘라.
 ```
 
 **Claude Code 레시피** (Codex → Claude Code)
@@ -286,7 +286,7 @@ claude -n "TASK-040-s3"
 ## 🏠 숙제
 | # | 유형 | 난이도 | 과제 | 완료 조건 |
 |---|---|---|---|---|
-| HW1 | 🔁 Reproduce | ★ | 따라하기 Step 2~5를 재현해 한 세션에 끝나지 않는 Task 하나를 3세션에 나눠 완료한다 | 핸드오프 노트 3개, 세션별 시작 시 상태 대조 결과, 세션별 `/context` 또는 `/status` 사용량 기록, 최종 `pnpm verify` 통과 로그 |
+| HW1 | 🔁 Reproduce | ★ | 따라하기 Step 2~5를 재현해 한 세션에 끝나지 않는 Task 하나를 3세션에 나눠 완료한다 | 핸드오프 노트 3개, 세션별 시작 시 상태 대조 결과, 세션별 `/context` 또는 `/status` 사용량 기록, 최종 `make verify` 통과 로그 |
 | HW2 | 🛠 Apply | ★★ | 본인 팀용 핸드오프 노트 템플릿을 작성한다. [templates/handoff-note.md](../../templates/handoff-note.md)를 출발점으로, HW1에서 받는 쪽 에이전트가 헷갈린 지점을 반영한다 | 새 템플릿 파일(섹션별 작성 규칙과 예시 포함), 기존 템플릿 대비 변경 이유 표, 새 템플릿으로 다른 도구에 핸드오프한 1회 기록(받는 쪽 질문 수 비교) |
 | HW3 | 🚀 Challenge | ★★★ | 핸드오프를 자동화한다: 노트 작성을 Skill(`.claude/skills/handoff/`, `.agents/skills/handoff/`)로 만들고, 세션 시작 시 최신 노트를 안내하는 `SessionStart` hook을 한 도구 이상에 구성한다 | Skill 파일 2개, hook 설정과 스크립트, hook 출력이 세션 컨텍스트에 실제로 반영되는지 확인한 로그(반영되지 않으면 그 사실과 대안), 자동화 전후 세션 시작 프롬프트 길이 비교 |
 

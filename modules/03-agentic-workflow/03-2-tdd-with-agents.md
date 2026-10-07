@@ -59,7 +59,7 @@ flowchart LR
     C2 -- 없음 --> C3{테스트 통과?}
     C3 -- 아니오 --> G
     C3 -- 예 --> RF[Refactor<br/>테스트 유지]
-    RF --> V[pnpm verify]
+    RF --> V[make verify]
 ```
 
 | 단계 | 에이전트가 수정해도 되는 파일 | 커밋 메시지 예 |
@@ -252,7 +252,7 @@ Codex hook을 만들었다면 `/hooks`에서 신뢰해야 실행된다는 점을
 ```text
 > invite.service.ts 를 리팩터링해라. 목표: 토큰 생성 로직을 별도 함수로 분리, 오류 클래스는 errors.ts 로 이동.
   동작은 바꾸지 마라. 테스트 파일은 수정하지 마라(import 경로 변경이 필요하면 먼저 말하고 멈춰라).
-  리팩터링 후 pnpm verify 를 실행하고 결과를 보여줘라.
+  리팩터링 후 make verify 를 실행하고 결과를 보여줘라.
 ```
 
 **Codex 레시피**
@@ -277,7 +277,7 @@ a1b2c3d test(api): add failing tests for project invites
 - [ ] `test:` → `feat:` → `refactor:` 순서의 커밋이 있다.
 - [ ] Green 이후 `git diff --stat <test 커밋> -- '*.test.ts'`가 비어 있다(리팩터링 중 승인한 import 변경 제외).
 - [ ] 테스트 변조를 막는 장치(hook 또는 `check:test-freeze`) 중 하나를 구성했다.
-- [ ] `pnpm verify`가 통과한다.
+- [ ] `make verify`가 통과한다.
 
 ## 🏠 숙제
 | # | 유형 | 난이도 | 과제 | 완료 조건 |
