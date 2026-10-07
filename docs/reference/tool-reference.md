@@ -457,6 +457,14 @@ jobs:
 22. **Claude `/usage`, `total_cost_usd`는 정가 기준 달러 추정치를 보여준다** (관리자는 `modelPricing` managed setting으로 바꿀 수 있다). 이 가이드는 비용을 토큰으로만 기록한다.
 23. **TaskFlow 검증 커맨드는 `make verify`로 통일한다.** B0(01-1)에서 만들고 04-1에서 `verify-fast`를 추가한다.
 
+24. **레슨 작성 중 추가 확인된 확장 기능 사실** (05·01 모듈 작성 시 공식 문서/로컬 `--help`로 확인):
+    - Claude subagent 필드 `permissionMode`, `maxTurns`, `background`, 호출 `@agent-<name>`, 중첩 깊이 3, `CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS`
+    - Claude `/batch`, `/subtask`, `/tasks`, `/skills`, `/reload-skills`; agent teams는 실험 기능(`CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1`)
+    - Claude worktree: `.worktreeinclude`, `worktree.baseRef`, 브랜치 이름 `worktree-<name>`
+    - Claude SessionStart matcher `startup|resume|clear|compact|fork`, 환경변수 유지는 `CLAUDE_ENV_FILE`에 `>>`로 추가, hook 기본 timeout 600초
+    - Codex agent 필수 필드 `name`, `description`, `developer_instructions`; 내장 agent default/worker/explorer; `/agent` 명령; `[agents]` 설정 키
+    - Codex cloud 환경 설정은 현재 문서 기준 "Install script" + "Start skill" 구성이다 ([cloud environments](https://learn.chatgpt.com/docs/environments/cloud-environments))
+
 추가 공식 문서: [managed settings](https://code.claude.com/docs/en/managed-settings.md), [settings reference](https://code.claude.com/docs/en/settings-reference.md), [monitoring usage](https://code.claude.com/docs/en/monitoring-usage.md)
 
 ### 12.2 자주 바뀌는 영역 (레슨마다 `last-verified` 갱신 대상)

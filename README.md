@@ -13,6 +13,7 @@
 | [projects/](./projects) | 모듈을 관통하는 장기 실습 프로젝트 (문서화 / 개발 / 레거시) |
 | [templates/](./templates) | 바로 복사해 쓰는 AGENTS.md, CLAUDE.md, PRD, ADR, Task 명세, 핸드오프 노트 |
 | [docs/design/](./docs/design) | 커리큘럼 설계서, 레슨·숙제 템플릿 |
+| [docs/reference/tool-reference.md](./docs/reference/tool-reference.md) | Claude Code·Codex 명령어/설정 검증 레퍼런스 (레슨의 사실 기준) |
 
 ### 모듈
 | # | 모듈 | 핵심 |

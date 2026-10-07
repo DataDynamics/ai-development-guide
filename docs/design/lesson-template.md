@@ -8,6 +8,7 @@ last-verified: YYYY-MM-DD
 tools:
   claude-code: x.y.z
   codex: x.y.z
+  # 필요하면 레슨에서 쓰는 다른 도구 버전도 추가한다 (예: claude-code-action, codex-action, playwright)
 ---
 
 # MM-N. 레슨 제목
