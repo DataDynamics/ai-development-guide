@@ -5,10 +5,10 @@
 ## 레슨
 | # | 제목 | 상태 |
 |---|---|---|
-| 02-1 | 에이전트와 함께 PRD 쓰기 | 📝 작성 예정 |
-| 02-2 | 아키텍처 설계와 ADR | 📝 작성 예정 |
-| 02-3 | 작업 분해: Epic → Story → Task | 📝 작성 예정 |
-| 02-4 | 인터페이스 우선 설계 | 📝 작성 예정 |
+| 02-1 | [에이전트와 함께 PRD 쓰기](./02-1-prd-with-agents.md) | ✅ 초안 |
+| 02-2 | [아키텍처 설계와 ADR](./02-2-architecture-and-adr.md) | ✅ 초안 |
+| 02-3 | [작업 분해: Epic → Story → Task](./02-3-task-breakdown.md) | ✅ 초안 |
+| 02-4 | [인터페이스 우선 설계](./02-4-interface-first.md) | ✅ 초안 |
 
 - 레슨별 따라하기·숙제 상세는 [커리큘럼 설계서 §4](../../docs/design/curriculum-design.md#4-모듈-상세-설계)를 참고한다.
 - 레슨 작성 형식: [lesson-template.md](../../docs/design/lesson-template.md)
