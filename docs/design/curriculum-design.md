@@ -93,7 +93,7 @@ ai-development-guide/
 | 01-1 | 프로젝트 메모리: `CLAUDE.md`와 `AGENTS.md` 작성법 | 빈 저장소에 두 파일 작성, 공통부/도구별 부분 분리 | 기존 프로젝트에 메모리 파일 작성 후 전/후 결과 비교 |
 | 01-2 | 권한·샌드박스·승인 모드 (`.claude/settings.json`, `~/.codex/config.toml`) | 허용/차단 목록 구성 | 팀 공용 설정과 개인 설정 분리안 작성 |
 | 01-3 | MCP 서버 연결 (GitHub, DB, 문서, 브라우저) | MCP 서버 2개 연결 및 사용 | 프로젝트에 필요한 MCP 목록과 보안 검토서 |
-| 01-4 | 확장 기능: 슬래시 커맨드, Skills, Subagents, Hooks | 커스텀 커맨드 + 포맷팅 Hook 만들기 | 반복 작업 1개를 Skill로 패키징 |
+| 01-4 | 확장 기능: Skills(구 슬래시 커맨드), Subagents, Hooks | 커스텀 Skill + 포맷팅 Hook 만들기 | 반복 작업 1개를 Skill로 패키징 |
 | 01-5 | 재현 가능한 개발 환경 (devcontainer, 셋업 스크립트, 클라우드 세션) | SessionStart 훅으로 의존성 자동 설치 | 신규 팀원이 10분 안에 에이전트를 돌릴 수 있는 온보딩 문서 |
 
 ### Module 02 — Spec-Driven Development (명세 주도 개발)
