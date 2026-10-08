@@ -55,6 +55,7 @@ ai-development-guide/
 │   ├── 04-quality-and-verification/
 │   ├── 05-scaling-up/
 │   └── 06-team-and-operations/
+│       └── images/            # 각 모듈에 PNG 설명 그림을 함께 보관
 ├── projects/                  # 모듈을 관통하는 장기 실습 프로젝트
 │   ├── A-documentation-project/
 │   ├── B-development-project/
@@ -265,3 +266,12 @@ ai-development-guide/
 - 도구 기능은 빠르게 바뀝니다. 도구 특화 내용은 각 레슨의 `레시피` 섹션에 격리하고 **검증 날짜**를 표기합니다.
 - 각 레슨 상단에 `last-verified: YYYY-MM-DD`, `tools: claude-code x.y / codex x.y` 메타데이터를 둡니다.
 - 분기마다 에이전트로 "변경된 기능 점검" 작업을 수행하고 결과를 PR로 반영합니다.
+
+### 9.1 학습용 설명 그림
+
+각 모듈의 `images/`에 제안서에도 사용할 수 있는 PNG 설명 그림을 보관합니다. [DataDynamics 이미지 스타일](./architecture-image-style.md)을 적용하고, [그림 목록](./illustrations.md)과 [생성 프롬프트](./illustration-prompts.json)를 함께 관리합니다.
+
+- 그림은 개념의 첫 이해를 돕고, 레슨의 텍스트·Mermaid·실행 레시피가 세부 조건을 설명합니다.
+- 문서·폴더·모니터·체크리스트처럼 역할을 알아보기 쉬운 사물을 사용합니다.
+- 이미지마다 대체 텍스트와 읽는 순서를 제공하여 그림 없이도 흐름을 이해할 수 있게 합니다.
+- 도구 기능이 바뀌면 그림의 라벨·방향·설명도 함께 검토합니다. 이미지 생성일과 CLI 기능 검증일은 구분합니다.

@@ -5,6 +5,7 @@
 ## 구조
 - `docs/design/curriculum-design.md` — 전체 설계서. 모든 콘텐츠의 기준 문서.
 - `modules/<NN-name>/` — 레슨. 파일명 `NN-M-<slug>.md`, 형식은 `docs/design/lesson-template.md`.
+- `modules/<NN-name>/images/` — 레슨에서 사용하는 PNG 설명 그림.
 - `projects/<X-name>/` — 프로젝트 마일스톤. 파일명 `<X><N>-<slug>.md`.
 - `templates/` — 학습자가 복사해 쓰는 템플릿.
 - `docs/workflow/README.md` — 실제 개발의 단계·산출물·완료 조건을 연결하는 실행 가이드.
@@ -22,6 +23,7 @@
 - 본문은 한국어, 도구·명령어·파일명은 원문 그대로 씁니다.
 - 본문·설명·프롬프트 예제의 문체는 합니다체로 통일합니다. 요청문은 “하십시오” 또는 “해 주십시오”처럼 격식 있는 높임말을 사용합니다.
 - 모든 레슨은 따라하기에 Claude Code 레시피와 Codex 레시피를 함께 제공합니다.
+- 설명 이미지는 `docs/design/architecture-image-style.md`의 DataDynamics 스타일을 따릅니다. PNG 원본·대체 텍스트·읽는 순서를 함께 제공하고 `docs/design/illustrations.md`와 생성 프롬프트 목록을 갱신합니다.
 - 도구 특화 내용에는 front matter의 `last-verified` 날짜를 갱신합니다.
 - 확인하지 않은 CLI 옵션이나 기능을 지어내지 않습니다. 불확실하면 `TODO(verify)`로 표시합니다.
 - 레슨/마일스톤을 추가하면 해당 모듈·프로젝트 README의 상태 표를 갱신합니다.
